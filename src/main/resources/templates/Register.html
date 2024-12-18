@@ -151,7 +151,7 @@
 <body>
     <div class="register-container">
         <h2>Register</h2>
-        <form>
+        <form action="/register" method="post">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" placeholder="Enter your username" required>
@@ -176,11 +176,16 @@
                 <label for="confirm-password">Confirm Password</label>
                 <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm your password" required>
             </div>
-            <button type="submit">Register</button>
+            <button>Register</button>
         </form>
         <div class="login-link">
-            <p>Already have an account? <a href="/login">Login here</a></p>
+            <p>Already have an account? <a href="/">Login here</a></p>
         </div>
     </div>
+
+    <script th:if="${session.message}" th:inline="javascript">
+        alert(/*[[${session.message}]]*/)
+        /*[[${@userService.removeMessage()}]]*/
+      </script>
 </body>
 </html>

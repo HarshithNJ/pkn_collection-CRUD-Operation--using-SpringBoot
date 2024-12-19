@@ -90,13 +90,54 @@ public class userService {
             session.setAttribute("message", "Invalid Session, Login Again");
             return "redirect:/";
         } else {
-            List<pokemonData> products=pokemonRepository.findByUser(user);
-            if(!products.isEmpty())
-                map.put("pokemons", products);
+            List<pokemonData> pokemons=pokemonRepository.findByUser(user);
+            if(!pokemons.isEmpty())
+                map.put("pokemons", pokemons);
                 else{
                     session.setAttribute("message", "No Products Available");
                 }
             return "home.html";
+        }
+    }
+
+    public String DeleteProduct(HttpSession session, int id) {
+        myUser user = (myUser) session.getAttribute("user");
+        if (user == null) {
+            session.setAttribute("message", "Invalid Session, Login Again");
+            return "redirect:/";
+        } else {
+            pokemonRepository.deleteById(id);
+            session.setAttribute("message", "Product Deleted Success");
+            return "redirect:/home";
+        }
+            
+    }
+
+    public String loadEdit(HttpSession session, int id, ModelMap map) {
+        myUser user = (myUser) session.getAttribute("user");
+        if (user == null) {
+            session.setAttribute("message", "Invalid Session, Login Again");
+            return "redirect:/";
+        } else {
+            pokemonData pokemon = pokemonRepository.findById(id).get();
+            map.put("pokemons", pokemon);
+            session.setAttribute("message", "Data Retrieved Success");
+            return "edit.html";
+        }
+    }
+
+    public String EditData(int id, HttpSession session, pokemonData pokemon) {
+        myUser user = (myUser) session.getAttribute("user");
+        if (user == null) {
+            session.setAttribute("message", "Invalid Session, Login Again");
+            return "redirect:/";
+        } else {
+            pokemon.setImageData(pokemon.getImage());
+            pokemonRepository.findById(id);
+            pokemon.setUser(user);
+            pokemonRepository.save(pokemon);
+            session.setAttribute("message", "Product Added Success");
+            return "redirect:/home";
         }
     }
 

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -62,4 +64,20 @@ public class userController {
     public String add(pokemonData pokemon, HttpSession session) {
         return service.add(pokemon, session);
     }
+
+    @GetMapping("/delete")
+    public String DeleteProduct(HttpSession session, @RequestParam int id) {
+        return service.DeleteProduct(session, id);
+    }
+
+    @GetMapping("/edit")
+    public String loadEdit(HttpSession session, @RequestParam int id, ModelMap map){
+        return service.loadEdit(session, id, map);
+    }
+
+    @PostMapping("/edit")
+    public String EditData(@RequestParam int id, HttpSession session, pokemonData pokemon) {
+       return service.EditData(id, session, pokemon);
+    }
+    
 }

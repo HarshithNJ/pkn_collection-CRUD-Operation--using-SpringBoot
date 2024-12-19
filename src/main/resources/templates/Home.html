@@ -89,9 +89,15 @@
             <td th:text="${pokemon.strength}"></td>
             <td th:text="${pokemon.weakness}"></td>
             <td th:text="${pokemon.image}"></td>
-            <td><a th:href="@{/edit/{id}(id=${pokemon.id})}">Edit</a></td>
-            <td><a th:href="@{/delete/{id}(id=${pokemon.id})}">Delete</a></td>
+            <td><a th:href="'/edit?id='+${pokemon.id}">Edit</a></td>
+            <td><a th:href="'/delete?id='+${pokemon.id}">Delete</a></td>
         </tr>
     </table>
+
+    <script th:if="${session.message}" th:inline="javascript">
+        alert(/*[[${session.message}]]*/);
+        /*[[${@userService.removeMessage()}]]*/
+      </script>
+      
 </body>
 </html>

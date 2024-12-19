@@ -1,11 +1,15 @@
 package org.pokemon_collection.pokemon_collection.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.pokemon_collection.pokemon_collection.dto.myUser;
+import org.pokemon_collection.pokemon_collection.dto.pokemonData;
+import org.pokemon_collection.pokemon_collection.repository.pokemonRepository;
 import org.pokemon_collection.pokemon_collection.repository.userRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -17,6 +21,9 @@ public class userService {
 
     @Autowired
     userRepository repository;
+
+    @Autowired
+    pokemonRepository pokemonRepository;
 
     public void removeMessage() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
@@ -62,5 +69,37 @@ public class userService {
         session.setAttribute("message", "Logout Success");
         return "redirect:/";
     }
+
+    public String add(pokemonData pokemon, HttpSession session) {
+        myUser user = (myUser) session.getAttribute("user");
+        if (user == null) {
+            session.setAttribute("message", "Invalid Session, Login Again");
+            return "redirect:/";
+        } else {
+            pokemon.setImageData(pokemon.getImage());
+            pokemon.setUser(user);
+            pokemonRepository.save(pokemon);
+            session.setAttribute("message", "Product Added Success");
+            return "redirect:/home";
+        }
+    }
+
+    public String loadHome(HttpSession session, ModelMap map) {
+        myUser user = (myUser) session.getAttribute("user");
+        if (user == null) {
+            session.setAttribute("message", "Invalid Session, Login Again");
+            return "redirect:/";
+        } else {
+            List<pokemonData> products=pokemonRepository.findByUser(user);
+            if(!products.isEmpty())
+                map.put("pokemons", products);
+                else{
+                    session.setAttribute("message", "No Products Available");
+                }
+            return "home.html";
+        }
+    }
+
+
     
 }

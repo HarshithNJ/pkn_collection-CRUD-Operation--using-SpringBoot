@@ -1,6 +1,7 @@
 package org.pokemon_collection.pokemon_collection.controller;
 
 import org.pokemon_collection.pokemon_collection.dto.myUser;
+import org.pokemon_collection.pokemon_collection.dto.pokemonData;
 import org.pokemon_collection.pokemon_collection.service.userService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,8 +44,8 @@ public class userController {
     }
     
     @GetMapping("/home")
-    public String loadHome() {
-        return "home.html";
+    public String loadHome(HttpSession session, ModelMap map) {
+        return service.loadHome(session, map);
     }
     
     @GetMapping("/logout")
@@ -52,4 +53,13 @@ public class userController {
         return service.LogOut(session);
     }
     
+    @GetMapping("/add")
+    public String loadAdd() {
+        return "add.html";
+    }
+
+    @PostMapping("/add")
+    public String add(pokemonData pokemon, HttpSession session) {
+        return service.add(pokemon, session);
+    }
 }

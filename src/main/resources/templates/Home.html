@@ -75,7 +75,7 @@
         <tr>
             <th>Name</th>
             <th>Type</th>
-            <th>Bio</th>
+            <th>Description</th>
             <th>strength</th>
             <th>weakness</th>
             <th>Image</th>
@@ -85,7 +85,7 @@
         <tr th:each="pokemon : ${pokemons}">
             <td th:text="${pokemon.name}"></td>
             <td th:text="${pokemon.type}"></td>
-            <td th:text="${pokemon.bio}"></td>
+            <td th:text="${pokemon.description}"></td>
             <td th:text="${pokemon.strength}"></td>
             <td th:text="${pokemon.weakness}"></td>
             <td th:text="${pokemon.image}"></td>

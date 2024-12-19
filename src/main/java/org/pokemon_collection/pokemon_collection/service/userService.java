@@ -56,5 +56,11 @@ public class userService {
             }
         }
     }
+
+    public String LogOut(HttpSession session) {
+        session.removeAttribute("user");
+        session.setAttribute("message", "Logout Success");
+        return "redirect:/";
+    }
     
 }

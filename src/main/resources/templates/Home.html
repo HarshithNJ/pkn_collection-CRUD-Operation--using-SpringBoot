@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        nav{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+            color: white;
+        }
+        nav h1{
+            margin: 0;
+            font-size: 24px;
+        }
+        nav div{
+            display: flex;
+            justify-content: space-around;
+            width: 20%;
+            gap: 10px;
+        }
+        nav button{
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        nav button a{
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        nav button:hover{
+            background-color: #777;
+        }
+        nav button a:hover{
+            color: #ddd;
+        }
+        h2 span{
+            animation: color 2s 0.5s infinite linear;
+        }
+        @keyframes color{
+            0%{
+                color: #ff0000;
+            }
+            50%{
+                color: #00ff00;
+            }
+            100%{
+                color: #0000ff;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>POKEMON COLLECTION</h1>
+        <div id="btns">
+            <button><a href="/add">Add Data</a></button>
+            <button><a href="/logout">Logout</a></button>
+        </div>
+    </nav>
+
+    <h2 th:text="'Hello '+${session.user.name}"></h2>
+    <h2>Welcome To Your <span>Collections</span></h2>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Bio</th>
+            <th>strength</th>
+            <th>weakness</th>
+            <th>Image</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <tr th:each="pokemon : ${pokemons}">
+            <td th:text="${pokemon.name}"></td>
+            <td th:text="${pokemon.type}"></td>
+            <td th:text="${pokemon.bio}"></td>
+            <td th:text="${pokemon.strength}"></td>
+            <td th:text="${pokemon.weakness}"></td>
+            <td th:text="${pokemon.image}"></td>
+            <td><a th:href="@{/edit/{id}(id=${pokemon.id})}">Edit</a></td>
+            <td><a th:href="@{/delete/{id}(id=${pokemon.id})}">Delete</a></td>
+        </tr>
+    </table>
+</body>
+</html>

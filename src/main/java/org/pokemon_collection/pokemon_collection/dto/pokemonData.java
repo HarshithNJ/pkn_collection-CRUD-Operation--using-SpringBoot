@@ -2,7 +2,7 @@ package org.pokemon_collection.pokemon_collection.dto;
 
 import java.io.IOException;
 
-import org.apache.tomcat.util.codec.binary.Base64;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.persistence.Entity;

@@ -132,8 +132,8 @@ public class userService {
             session.setAttribute("message", "Invalid Session, Login Again");
             return "redirect:/";
         } else {
+            pokemon.setId(id);
             pokemon.setImageData(pokemon.getImage());
-            pokemonRepository.findById(id);
             pokemon.setUser(user);
             pokemonRepository.save(pokemon);
             session.setAttribute("message", "Product Added Success");

@@ -6,42 +6,80 @@
     <title>Document</title>
 
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #f5f5f5;
+        }
         nav{
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #333;
-            padding: 10px 20px;
+            background-color: #2a75bb;
+            padding: 15px 30px;
             color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            animation: slideDown 0.5s ease-out;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
         }
         nav h1{
             margin: 0;
-            font-size: 24px;
+            font-size: 28px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: glow 2s ease-in-out infinite;
+        }
+        @keyframes glow {
+            0% { text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+            50% { text-shadow: 0 0 10px #ffcb05, 0 0 20px #ffcb05; }
+            100% { text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
         }
         nav div{
             display: flex;
             justify-content: space-around;
-            width: 20%;
-            gap: 10px;
+            gap: 20px;
         }
         nav button{
-            background-color: #555;
-            color: white;
+            background-color: #ffcb05;
+            color: #2a75bb;
             border: none;
-            padding: 5px 10px;
+            padding: 10px 20px;
             cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            animation: bounceIn 0.5s ease-out;
+        }
+        @keyframes bounceIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
         nav button a{
-            color: white;
+            color: #2a75bb;
             text-decoration: none;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: bold;
         }
         nav button:hover{
-            background-color: #777;
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        nav button a:hover{
-            color: #ddd;
+        h2 {
+            text-align: center;
+            margin: 20px 0;
+            color: #2a75bb;
+            animation: fadeIn 1s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         h2 span{
             animation: color 2s 0.5s infinite linear;
@@ -57,6 +95,117 @@
                 color: #0000ff;
             }
         }
+        .pokemon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            animation: fadeIn 1s ease-out;
+        }
+        .pokemon-card {
+            background: linear-gradient(145deg, #ffffff, #f5f5f5);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(42, 117, 187, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: cardPop 0.6s ease-out backwards;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        .pokemon-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 203, 5, 0.2),
+                transparent
+            );
+            transition: 0.5s;
+        }
+        .pokemon-card:hover::before {
+            left: 100%;
+        }
+        @keyframes cardPop {
+            0% { transform: scale(0.8) translateY(50px); opacity: 0; }
+            60% { transform: scale(1.05) translateY(-10px); }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
+        }
+        .pokemon-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(42, 117, 187, 0.2);
+            border-color: rgba(42, 117, 187, 0.3);
+        }
+        .pokemon-card h3 {
+            color: #2a75bb;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            transition: all 0.3s ease;
+            text-transform: capitalize;
+        }
+        .pokemon-card:hover h3 {
+            color: #ffcb05;
+            transform: scale(1.1);
+        }
+        .pokemon-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.5s ease;
+        }
+        .pokemon-card:hover img {
+            transform: scale(1.1) rotate(3deg);
+        }
+        .pokemon-card p {
+            margin: 10px 0;
+            color: #666;
+            transition: all 0.3s ease;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .pokemon-card:hover p {
+            transform: translateX(10px);
+            background-color: rgba(42, 117, 187, 0.05);
+        }
+        .pokemon-card .actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        .pokemon-card .actions a {
+            text-decoration: none;
+            padding: 8px 20px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9em;
+        }
+        .pokemon-card .actions a:first-child {
+            background-color: #2a75bb;
+            box-shadow: 0 4px 15px rgba(42, 117, 187, 0.3);
+        }
+        .pokemon-card .actions a:last-child {
+            background-color: #ff4444;
+            box-shadow: 0 4px 15px rgba(255, 68, 68, 0.3);
+        }
+        .pokemon-card .actions a:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        .pokemon-card .actions a:active {
+            transform: translateY(0) scale(0.95);
+        }
     </style>
 </head>
 <body>
@@ -71,33 +220,26 @@
     <h2 th:text="'Hello '+${session.user.name}"></h2>
     <h2>Welcome To Your <span>Collections</span></h2>
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Type</th>
-            <th>Description</th>
-            <th>strength</th>
-            <th>weakness</th>
-            <th>Image</th>
-            <th>Edit</th>
-            <th>Delete</th>
-        </tr>
-        <tr th:each="pokemon : ${pokemons}">
-            <td th:text="${pokemon.name}"></td>
-            <td th:text="${pokemon.type}"></td>
-            <td th:text="${pokemon.description}"></td>
-            <td th:text="${pokemon.strength}"></td>
-            <td th:text="${pokemon.weakness}"></td>
-            <td th:text="${pokemon.image}"></td>
-            <td><a th:href="'/edit?id='+${pokemon.id}">Edit</a></td>
-            <td><a th:href="'/delete?id='+${pokemon.id}">Delete</a></td>
-        </tr>
-    </table>
+    <div class="pokemon-grid">
+        <div class="pokemon-card" th:each="pokemon, iterStat : ${pokemons}" th:style="'animation-delay: ' + ${iterStat.index * 0.1} + 's'">
+            <h3 th:text="${pokemon.name}"></h3>
+            <img th:src="'data:image/jpeg;base64,'+${pokemon.imageData}" alt="pokemon.name">
+            <p><span th:text="${pokemon.type}"></span></p>
+            <p><span th:text="${pokemon.description}"></span></p>
+            <p><strong>Strength:</strong> <span th:text="${pokemon.strength}"></span></p>
+            <p><strong>Weakness:</strong> <span th:text="${pokemon.weakness}"></span></p>
+            
+            <div class="actions">
+                <a th:href="'/edit?id='+${pokemon.id}">Edit</a>
+                <a th:href="'/delete?id='+${pokemon.id}">Delete</a>
+            </div>
+        </div>
+    </div>
 
     <script th:if="${session.message}" th:inline="javascript">
         alert(/*[[${session.message}]]*/);
         /*[[${@userService.removeMessage()}]]*/
-      </script>
+    </script>
       
 </body>
 </html>

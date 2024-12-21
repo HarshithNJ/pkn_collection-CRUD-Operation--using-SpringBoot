@@ -193,6 +193,8 @@
 <body>
     <h2>Add New Pokemon</h2>
     <form action="/add" method="post" enctype="multipart/form-data" th:each="pokemon : ${pokemons}">
+        
+        <input type="hidden" id="id" name="id" th:value="${pokemon.id}" readonly>
         <div>
             <label for="image">Pokemon Image:</label>
             <input type="file" id="image" name="image" accept="image/*" th:value="${pokemon.image}" readonly>
@@ -207,7 +209,7 @@
         </div>
         <div>
             <label for="description">Description:</label>
-            <textarea id="description" name="description" th:value ="${pokemon.description}"></textarea>
+            <textarea id="description" name="description" th:text ="${pokemon.description}"></textarea>
         </div>
         <div>
             <label for="strength">Strength:</label>
